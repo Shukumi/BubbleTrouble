@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class GameManager : MonoBehaviour
     //private float kraft2 = 350.0f;
     private Vector3 velocity;
     Vector2 direction;
+    [SerializeField] 
+    [SerializeField]
+    private Text Punktetext;
 
 
     //  Rigidbody2D BallRigid;
