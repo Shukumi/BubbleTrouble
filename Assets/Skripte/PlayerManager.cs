@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private float canJump = 0f;
+    private float canRope = 0f;
     [SerializeField]
     private Rigidbody2D RigidPlayer;
     float speed = 10.0f;
@@ -39,7 +40,7 @@ public class PlayerManager : MonoBehaviour
             canJump = Time.time + 1.95f;
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && Time.time > canRope)
         {
             print("InsertPressed");
             Vector3 currentPosition = this.transform.position;
@@ -47,12 +48,27 @@ public class PlayerManager : MonoBehaviour
             CurrentRope = Instantiate(Rope, currentPosition, Quaternion.identity);
             currentRopes.Add(CurrentRope.gameObject);
             StartCoroutine(ExpandRope());
+            canRope = Time.time + 5.50f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                RigidPlayer.velocity = Vector3.zero;
+                RigidPlayer.angularVelocity = 0;
+            }
         }
     }
 
     private IEnumerator ExpandRope()
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 11; i++)
         {
             yield return new WaitForSeconds(0.4f);
             Vector3 currentPosition = CurrentRope.position;
